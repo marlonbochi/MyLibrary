@@ -8,13 +8,15 @@
                 <div class="col text-center">
                     <img src="https://covers.openlibrary.org/b/id/295577-M.jpg" alt="img_test" class="img-thumbnail img_book">
                     <h5 class="text-center">The adventures of Tom Sawyer</h5>
-                    <div class="btn-group" role="group">
-                        <button id="btn_etc" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-h"></i>
+                    
+                    <div ngbDropdown class="btn-group">
+                        <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>
+                            <i class="fa fa-ellipsis-h"></i>
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="btn_etc">
-                            <a class="dropdown-item" href="#">Dropdown link</a>
-                            <a class="dropdown-item" href="#">Dropdown link</a>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-item cursor-pointer" (click)='NotRead()'>Not Read</button>
+                            <button class="dropdown-item cursor-pointer">More informations</button>
+                            <button class="dropdown-item cursor-pointer">Exclude of library</button>
                         </div>
                     </div>
                 </div>

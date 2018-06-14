@@ -8,12 +8,16 @@ import { Title } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private title: Title) { 
+  constructor(private title: Title) {
 
     title.setTitle("My Library - Home");
   }
 
   ngOnInit() {
+  }
+
+  NotRead(){
+    
   }
 
 }

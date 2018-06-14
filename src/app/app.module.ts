@@ -12,13 +12,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { Config } from './config';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-
+import { SearchComponent } from './pages/search/search.component';
+import { ReportComponent } from './pages/report/report.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     Error404Component,
+    SearchComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,8 @@ import { HttpModule } from '@angular/http';
     NgbModule,
     HttpClientModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    NgbModule.forRoot()
   ],
   providers: [
     UserService,
