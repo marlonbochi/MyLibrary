@@ -15,9 +15,10 @@ import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import {map} from 'rxjs/operators';
 
 @Injectable()
-export class UserService {
+export class OpenLibraryService {
 
     options: RequestOptions;
 
@@ -29,13 +30,12 @@ export class UserService {
 
     }
 
-    // getSignup(email: string, password: string, confirmPassword: string): Observable<any> {
-    //     let body = JSON.stringify({ email: email, password: password, confirmPassword: confirmPassword });
-    //     return this.http
-    //         .post(this.config.url + 'api/signup', body, this.options)
-    //         .map(this.extractData)
-    //         .catch(this.handleError);
-    // }
+    searchBooks(query: string, page: number = 1): Observable<any> {
+        let url = this.config.urlSearch + '?q='+ encodeURIComponent(query) + '&page=' + page;
+
+       return this.http.get(url)
+                .pipe(map(res => this.extractData(res)));
+    }
 
     private extractData(res: Response) {
         const body = res.json();

@@ -1,3 +1,16 @@
-<p>
-  search works!
-</p>
+<div class="container">
+  <form [formGroup]="searchForm" (submit)="searchBooks()" novalidate>
+    <div class="form-group">
+      <input class="form-control" formControlName="query" name="query" placeholder="Type to search">
+      <div *ngIf="searchForm.controls['query'].invalid && (searchForm.controls['query'].dirty || searchForm.controls['query'].touched)" class="alert alert-danger">
+        <div *ngIf="searchForm.controls['query'].errors.required">
+            Type something
+        </div>
+        <div *ngIf="searchForm.controls['query'].errors.minlength">
+            Please enter at least 3 letters
+        </div>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary float-right">Search</button>
+  </form>
+</div>
