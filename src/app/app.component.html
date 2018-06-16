@@ -17,7 +17,7 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="/home" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#" routerLink="/home" routerLinkActive="active">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" routerLink="/search" routerLinkActive="active">Search</a>
@@ -28,14 +28,15 @@
         </ul>
       </div>
 
-      <form class="form-inline mt-2 mt-md-0">
-        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <form class="form-inline mt-2 mt-md-0" action="/search" method="GET" ngNoForm>
+        <input class="form-control mr-sm-2" type="text" placeholder="Search for a book" aria-label="Search" name="query">
         <button class="btn btn-primary my-2 my-sm-0" type="submit">Search</button>
       </form>
     </nav>
 
     <router-outlet></router-outlet>
 
+    <div class="loading" id="loadingId"></div>
   </body>
 </html>
 

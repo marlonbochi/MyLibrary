@@ -1,16 +1,64 @@
 <div class="container">
   <form [formGroup]="searchForm" (submit)="searchBooks()" novalidate>
     <div class="form-group">
-      <input class="form-control" formControlName="query" name="query" placeholder="Type to search">
-      <div *ngIf="searchForm.controls['query'].invalid && (searchForm.controls['query'].dirty || searchForm.controls['query'].touched)" class="alert alert-danger">
+      <label for="query">What are you looking for?</label>
+      <input class="form-control" formControlName="query" name="query" placeholder="Type to search" id="query">
+      <div *ngIf="searchForm.controls['query'].invalid && (searchForm.controls['query'].dirty || searchForm.controls['query'].touched)"
+        class="alert alert-danger">
         <div *ngIf="searchForm.controls['query'].errors.required">
-            Type something
+          Type something
         </div>
         <div *ngIf="searchForm.controls['query'].errors.minlength">
-            Please enter at least 3 letters
+          Please enter at least 3 letters
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary float-right">Search</button>
+    <div class="form-group">
+      <label for="typeSearch">Type of search</label>
+      <select class="form-control" id="typeSearch" name="typeSearch" formControlName="typeSearch">
+        <!-- <option value="">All</option> -->
+        <option value="title">Per Title</option>
+        <option value="author">Per Author</option>
+        <!-- <option value="subject">Per subject</option> -->
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary float-right" [disabled]="!searchForm.valid">Search</button>
   </form>
+  <div class="clear"></div>
+</div>
+
+<div class="container-fluid margin-top-15">
+  <div class="row" *ngIf="haveBooks; else elseBlock">
+    <div class="col-2 text-center" *ngFor="let book of books">
+      <a href="{{book.Link}}" target="_blank">
+        <img src="{{book.Image}}" class="img-thumbnail img_book">
+        <h4 class="text-center bold">{{book.Name}}</h4>
+        <h5 class="text-center"><small>{{book.Author}}</small></h5>
+      </a>
+      <div ngbDropdown class="btn-group">
+        <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button class="dropdown-item cursor-pointer" (click)='addBookMyLibrary(book, true)'>I already read this book</button>
+          <button class="dropdown-item cursor-pointer" (click)='addBookMyLibrary(book, false)'>Add for my library</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <nav aria-label="Page navigation example" *ngIf="haveBooks" class="margin-top-15">
+      <ul class="pagination">
+        <li *ngFor="let pagePagination of numberPages" [ngClass]="getStylePagination(page, pagePagination)" class="">
+          <button class="page-link" (click)="searchBooks(pagePagination)">{{pagePagination}}</button>
+        </li>      
+      </ul>
+    </nav>
+
+  <ng-template #elseBlock>
+    <div class="row text-center">
+      <h3 class="width100">{{message}}</h3>
+    </div>
+  </ng-template>
 </div>

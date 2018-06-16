@@ -3,6 +3,33 @@
     cursor: pointer;
 }
 
-.input-100{
+.width100{
     width: 100%;
+}
+
+.clear{
+    clear: both;
+}
+
+.margin-top-15{
+    margin-top: 1.5rem;
+}
+
+.img_book{
+    max-width: 7.15rem;
+}
+
+.loading{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background: url('assets/images/loading.gif') no-repeat center center white;
+    opacity: 0.8;
+    z-index: 1040;
+    display: none;
+}
+
+.show{
+    display: block;
 }

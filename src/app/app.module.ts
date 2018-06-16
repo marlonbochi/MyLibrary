@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { SearchComponent } from './pages/search/search.component';
 import { ReportComponent } from './pages/report/report.component';
+import { Ng2Webstorage } from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -31,11 +32,12 @@ import { ReportComponent } from './pages/report/report.component';
     FormsModule,
     HttpModule,
     NgbModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    Ng2Webstorage
   ],
   providers: [
     OpenLibraryService,
-    Config
+    Config,
   ],
   bootstrap: [AppComponent]
 })
