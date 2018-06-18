@@ -5,7 +5,7 @@
             <h2 class="text-center">Books I've read</h2>
 
             <div class="row">
-                <div class="col-3 text-center" *ngFor="let book of booksRead">
+                <div class="col-4 text-center" *ngFor="let book of booksRead">
                     <a href="{{book.Link}}" target="_blank">
                         <img src="{{book.Image}}" class="img-thumbnail img_book">
                         <h4 class="text-center bold">{{book.Name}}</h4>
@@ -29,7 +29,7 @@
             <h2 class="text-center">Books I'll read</h2>
 
             <div class="row">
-                <div class="col-3 text-center" *ngFor="let book of booksNotRead">
+                <div class="col-4 text-center" *ngFor="let book of booksNotRead">
                     <a href="{{book.Link}}" target="_blank">
                         <img src="{{book.Image}}" class="img-thumbnail img_book">
                         <h4 class="text-center bold">{{book.Name}}</h4>

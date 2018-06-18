@@ -9,21 +9,22 @@
   </head>
   <body>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">My Library</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="#" routerLink="/home">My Library</a>
+      <button class="navbar-toggler navbar-toggler-right" type="button" 
+      aria-controls="appNavigation" [attr.aria-expanded]="!isCollapsed" aria-label="Toggle navigation" (click)="toggleMenu()">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <div class="collapse navbar-collapse" id="appNavigation" [ngbCollapse]="isCollapsed">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="/home" routerLinkActive="active">Home</a>
+            <a class="nav-link" href="#" routerLink="/home" (click)="toggleMenu()" routerLinkActive="active">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="/search" routerLinkActive="active">Search</a>
+            <a class="nav-link" href="#" routerLink="/search" (click)="toggleMenu()" routerLinkActive="active">Search</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" routerLink="/report" routerLinkActive="active">Report</a>
+            <a class="nav-link" href="#" routerLink="/report" (click)="toggleMenu()" routerLinkActive="active">Report</a>
           </li>
         </ul>
       </div>

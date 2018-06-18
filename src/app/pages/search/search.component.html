@@ -29,7 +29,7 @@
 
 <div class="container-fluid margin-top-15">
   <div class="row" *ngIf="haveBooks; else elseBlock">
-    <div class="col-3 text-center" *ngFor="let book of books">
+    <div class="col-4 text-center" *ngFor="let book of books">
       <a href="{{book.Link}}" target="_blank">
         <img src="{{book.Image}}" class="img-thumbnail img_book">
         <h4 class="text-center bold">{{book.Name}}</h4>

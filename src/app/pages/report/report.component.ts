@@ -29,6 +29,9 @@ export class ReportComponent implements OnInit {
   fromDate: NgbDateStruct;
   toDate: NgbDateStruct;
   hoveredDate: NgbDateStruct;
+  displayMonths: number = 2;
+  showBtnPrint: boolean = false;
+  isMobile: boolean;
 
   constructor(private title: Title,
     private fb: FormBuilder,
@@ -42,6 +45,13 @@ export class ReportComponent implements OnInit {
     this.toDate = calendar.getNext(calendar.getToday(), 'd', 30);
 
     this.books = [];
+
+    this.isMobile = /Android|iPhone/i.test(window.navigator.userAgent);
+
+    if(this.isMobile){
+      this.displayMonths = 1;
+    }
+
   }
 
   ngOnInit() {
@@ -94,8 +104,22 @@ export class ReportComponent implements OnInit {
       this.libraryService.loading(false);
       if(this.books.length == 0){
         this.toast.warning("No books found");
+        this.showBtnPrint = false;
       }
+      this.showBtnPrint = true;
     });
+  }
+
+  public print = (): void => {
+    window.print();
+  }
+
+  getClassTable(){
+    if(this.isMobile){
+      return "table table-responsive";
+    }else{
+      return "table";
+    }
   }
 
 }

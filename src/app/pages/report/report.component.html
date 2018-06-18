@@ -1,7 +1,7 @@
 <div class="container">
-  <p class="text-center">Report of books that have been read. Filter for a start and end date</p>
-  <form (submit)="viewReport()" novalidate class="text-center">
-    <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="2" [dayTemplate]="t">
+  <p class="text-center noprint">Report of books that have been read. Filter for a start and end date</p>
+  <form (submit)="viewReport()" novalidate class="text-center noprint">
+    <ngb-datepicker #dp (select)="onDateSelection($event)" [displayMonths]="displayMonths" [dayTemplate]="t">
     </ngb-datepicker>
     <ng-template #t let-date="date" let-focused="focused">
       <span class="custom-day" [class.focused]="focused" [class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)"
@@ -10,13 +10,17 @@
       </span>
     </ng-template>
 
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary btn-find margin-top-15">Find</button>
+    <div class="form-group noprint">
+      <button type="submit" class="btn btn-primary btn-find margin-top-15 ">Find</button>
     </div>
   </form>
+  
+  <div class="text-center form-group noprint">
+    <button class="btn btn-primary btn-find" *ngIf="showBtnPrint" (click)="print()">Print</button>
+  </div>
   <div class="clear"></div>
 
-  <table class="table" *ngIf="books.length > 0">
+  <table [ngClass]="getClassTable()" *ngIf="books.length > 0">
     <thead class="thead-dark">
       <tr>
         <th scope="col">Id</th>
@@ -28,11 +32,11 @@
     </thead>
     <tbody>
       <tr *ngFor="let book of books">
-        <th scope="row">
+        <td scope="row">
           <a href="{{book.Link}}" target="_blank">
             {{book.IdBook}}
           </a>
-        </th>
+        </td>
         <td>{{book.Name}}</td>
         <td>{{book.Author}}</td>
         <td>{{book.DateRead.toLocaleDateString('pt-BR')}}</td>
