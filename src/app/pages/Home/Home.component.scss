@@ -1,3 +1,14 @@
 .border-right-dashed{
     border-right: 2px #000 dashed;
 }
+
+@media(max-width: 600px){
+    .col-mobile{
+        width: 100%;
+        max-width: 100%;
+        flex: initial;
+    }
+    .border-right-dashed{
+        border: none;
+    }
+}

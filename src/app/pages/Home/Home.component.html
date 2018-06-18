@@ -1,33 +1,51 @@
 <main role="main" class="container-fluid">
 
     <div class="row">
-        <div class="col border-right-dashed">
+        <div class="col-6 border-right-dashed col-mobile">
             <h2 class="text-center">Books I've read</h2>
 
             <div class="row">
-                <div class="col text-center">
-                    <img src="https://covers.openlibrary.org/b/id/295577-M.jpg" alt="img_test" class="img-thumbnail img_book">
-                    <h5 class="text-center">The adventures of Tom Sawyer</h5>
-                    
+                <div class="col-3 text-center" *ngFor="let book of booksRead">
+                    <a href="{{book.Link}}" target="_blank">
+                        <img src="{{book.Image}}" class="img-thumbnail img_book">
+                        <h4 class="text-center bold">{{book.Name}}</h4>
+                        <h5 class="text-center">
+                            <small>{{book.Author}}</small>
+                        </h5>
+                    </a>
                     <div ngbDropdown class="btn-group">
                         <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>
                             <i class="fa fa-ellipsis-h"></i>
                         </button>
                         <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-                            <button class="dropdown-item cursor-pointer" (click)='NotRead()'>Not Read</button>
-                            <button class="dropdown-item cursor-pointer">More informations</button>
-                            <button class="dropdown-item cursor-pointer">Exclude of library</button>
+                            <button class="dropdown-item cursor-pointer" (click)='Read(book, false)'>Not Read</button>
+                            <button class="dropdown-item cursor-pointer" (click)="DeleteBook(book)">Exclude of library</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col">
+        <div class="col-6 col-mobile">
             <h2 class="text-center">Books I'll read</h2>
 
             <div class="row">
-                <div class="col">
-
+                <div class="col-3 text-center" *ngFor="let book of booksNotRead">
+                    <a href="{{book.Link}}" target="_blank">
+                        <img src="{{book.Image}}" class="img-thumbnail img_book">
+                        <h4 class="text-center bold">{{book.Name}}</h4>
+                        <h5 class="text-center">
+                            <small>{{book.Author}}</small>
+                        </h5>
+                    </a>
+                    <div ngbDropdown class="btn-group">
+                        <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>
+                            <i class="fa fa-ellipsis-h"></i>
+                        </button>
+                        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+                            <button class="dropdown-item cursor-pointer" (click)='Read(book, true)'>I Read</button>
+                            <button class="dropdown-item cursor-pointer" (click)="DeleteBook(book)">Exclude of library</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

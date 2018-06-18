@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { NgForm, FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { OpenLibraryService } from '../../services/openlibrary.service';
+import { LibraryService } from '../../services/library.service';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Book } from '../../model/book.model';
 import { Config } from '../../config';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-search',
@@ -17,18 +18,18 @@ export class SearchComponent implements OnInit {
   searchForm: FormGroup;
   page: number = 1;
   typeSearch: string = "title";
-  books: any = [];
+  books: Book[] = [];
   message: string = "type to search ...";
   config: Config = new Config();
   numberPages: any = [];
-
   haveBooks: boolean = false;
 
   constructor(
     private title: Title,
-    private openLibraryService: OpenLibraryService,
+    private libraryService: LibraryService,
     private fb: FormBuilder,
-    private activatedRoute: ActivatedRoute) {
+    private activatedRoute: ActivatedRoute,
+    private toastr: ToastrService) {
 
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       if (params["query"] != undefined) {
@@ -64,56 +65,70 @@ export class SearchComponent implements OnInit {
 
   searchBooks(page: number = 1) {
 
-      this.page = page;
-      this.openLibraryService.loading(true);
-      this.books = [];
-      this.numberPages = [];
-      
-      this.openLibraryService.searchBooks(this.searchForm.controls["query"].value, this.searchForm.controls["typeSearch"].value, page)
-        .subscribe((books) => {
-          if (books.docs.length > 0) {
-            books.docs.forEach(bookApi => {
-              if (bookApi.cover_edition_key != undefined) {
-                let book = new Book();
-                book.Id = bookApi.cover_edition_key;
-                book.Author = bookApi.author_name;
-                book.Name = bookApi.title;
-                book.Link = this.config.urlLinkBook + book.Id;
-                book.Image = this.config.urlImages + book.Id + '-M.jpg';
+    this.page = page;
+    this.libraryService.loading(true);
+    this.books = [];
+    this.numberPages = [];
 
-                this.books.push(book);
+    this.libraryService.searchBooks(this.searchForm.controls["query"].value, this.searchForm.controls["typeSearch"].value, page)
+      .subscribe((books) => {
+        if (books.docs.length > 0) {
+          books.docs.forEach(bookApi => {
+            if (bookApi.cover_edition_key != undefined) {
+              let book = new Book();
+              book.IdBook = bookApi.cover_edition_key;
+              if(bookApi.author_name != undefined){
+                book.Author = bookApi.author_name.join(', ');
+              }else{
+                book.Author = "Without author";
               }
+              book.Name = bookApi.title;
+              book.Link = this.config.urlLinkBook + book.IdBook;
+              book.Image = this.config.urlImages + book.IdBook + '-M.jpg';
 
-            });
-
-            for(var i=0; i < Math.ceil(books.num_found / 100);i++){
-              this.numberPages.push(i + 1);
+              this.books.push(book);
             }
-            
-            this.haveBooks = true;
-            this.openLibraryService.loading(false);
-          } else {
-            this.message = "No books found!";
-            this.haveBooks = false;
-            this.openLibraryService.loading(false);
+
+          });
+
+          for (var i = 0; i < Math.ceil(books.num_found / 100); i++) {
+            this.numberPages.push(i + 1);
           }
-        });
+
+          this.haveBooks = true;
+          this.libraryService.loading(false);
+        } else {
+          this.message = "No books found!";
+          this.haveBooks = false;
+          this.libraryService.loading(false);
+        }
+      });
   }
 
   addBookMyLibrary(book: Book, read: boolean) {
-    this.openLibraryService.loading(true);
+    this.libraryService.loading(true);
     if (read) {
       book.DateRead = new Date();
     }
     book.Read = read;
-    this.openLibraryService.addStorage(book);
-    this.openLibraryService.loading(false);
+    this.libraryService.verifyIfExistInDatebase(book.IdBook).then((count) => {
+
+      if (count > 0) {
+        this.libraryService.loading(false);
+        this.toastr.warning('Book has already been added');
+      } else {
+        this.libraryService.addBook(book);
+        this.libraryService.loading(false);
+        this.toastr.success('Book added from library');
+      }
+
+    });
   }
 
   getStylePagination(page1, page2) {
-    if(page1 == page2){
+    if (page1 == page2) {
       return "page-item active";
-    }else{
+    } else {
       return "page-item";
     }
   }

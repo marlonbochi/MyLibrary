@@ -5,4 +5,10 @@ body {
     padding: 3rem 1.5rem;
     text-align: center;
   }
+
+  @media(max-width: 600px){
+    .form-search-header{
+      display: none;
+    }
+  }
   
