@@ -4,7 +4,7 @@ System developed to meet a demand of a person who read many books and would like
 
 Uses the openlibrary API to search the books used in the system.
 
-It was developed with the Angular 6, SCSS, Bootstrap and uses the Bootswatch theme, "sketchy". Uses the NodeJS packet driver "npm".
+It was developed with the Angular 6, SCSS, Bootstrap and uses the Bootswatch theme, "sketchy". Uses NodeJS package control "npm".
 
 It uses the JsStore library to perform CRUD in the browser database, IndexedDB.
 
