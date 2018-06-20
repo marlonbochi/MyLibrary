@@ -22,14 +22,14 @@
         <!-- <option value="subject">Per subject</option> -->
       </select>
     </div>
-    <button type="submit" class="btn btn-primary float-right" [disabled]="!searchForm.valid">Search</button>
+    <button type="submit" class="btn btn-primary float-right" [disabled]="!searchForm.valid" id="btnSearch">Search</button>
   </form>
   <div class="clear"></div>
 </div>
 
 <div class="container-fluid margin-top-15">
   <div class="row" *ngIf="haveBooks; else elseBlock">
-    <div class="col-4 text-center" *ngFor="let book of books">
+    <div class="col-4 text-center books" *ngFor="let book of books">
       <a href="{{book.Link}}" target="_blank">
         <img src="{{book.Image}}" class="img-thumbnail img_book">
         <h4 class="text-center bold">{{book.Name}}</h4>
@@ -39,7 +39,7 @@
         <button class="btn btn-secondary" id="dropdownBasic1" ngbDropdownToggle>
           <i class="fa fa-ellipsis-h"></i>
         </button>
-        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="divFunctions">
           <button class="dropdown-item cursor-pointer" (click)='addBookMyLibrary(book, true)'>I already read this book</button>
           <button class="dropdown-item cursor-pointer" (click)='addBookMyLibrary(book, false)'>Add for my library</button>
         </div>
@@ -48,9 +48,9 @@
   </div>
 
 
-  <nav aria-label="Page navigation example" *ngIf="haveBooks" class="margin-top-15">
+  <nav aria-label="Page navigation" *ngIf="haveBooks" class="margin-top-15">
       <ul class="pagination">
-        <li *ngFor="let pagePagination of numberPages" [ngClass]="getStylePagination(page, pagePagination)" class="">
+        <li *ngFor="let pagePagination of numberPages" [ngClass]="getStylePagination(page, pagePagination)">
           <button class="page-link" (click)="searchBooks(pagePagination)">{{pagePagination}}</button>
         </li>      
       </ul>

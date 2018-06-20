@@ -17,6 +17,7 @@
   
   <div class="text-center form-group noprint">
     <button class="btn btn-primary btn-find" *ngIf="showBtnPrint" (click)="print()">Print</button>
+    <h4 class="margin-top-15" *ngIf="showBtnPrint">Total search record: <b>{{books.length}} books</b></h4>
   </div>
   <div class="clear"></div>
 

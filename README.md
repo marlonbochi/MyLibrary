@@ -13,3 +13,9 @@ To run this application you need the NodeJS and after its installation the execu
 <code>npm install</code>
 
 <code>npm start</code>
+
+# Tests e2e
+
+I created a simple test in the search screen and to execute it is just to execute the commands:
+
+<code>ng e2e</code>
